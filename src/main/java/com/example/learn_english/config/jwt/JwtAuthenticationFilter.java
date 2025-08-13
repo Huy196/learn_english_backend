@@ -26,6 +26,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws ServletException, IOException {
 
+        String path = req.getServletPath();
+
+        if (path.startsWith("/uploadFile/") || path.equals("/api/login") || path.equals("/api/register")) {
+            chain.doFilter(req, res);
+            return;
+        }
+
         String auth = req.getHeader("Authorization");
         if (auth != null && auth.startsWith("Bearer ")) {
             String token = auth.substring(7);
@@ -34,9 +41,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UserDetails user = service.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         user, null, user.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+
         chain.doFilter(req, res);
     }
+
 }

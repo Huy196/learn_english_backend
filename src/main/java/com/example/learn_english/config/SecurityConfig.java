@@ -45,12 +45,12 @@ public class SecurityConfig {
                         .requestMatchers("/uploadFile/**").permitAll()
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/").permitAll()
-                        .requestMatchers("/api/register").hasRole("ADMIN")
+                        .requestMatchers("/api/register").permitAll()
                         .requestMatchers("/api/upload/**").authenticated()
-                        .requestMatchers("/api/users/**").authenticated() // yêu cầu token
-//                        .requestMatchers(HttpMethod.DELETE, "/api/users/delete/").hasRole("ADMIN")
+                        .requestMatchers("/api/users/**").authenticated()
                         .anyRequest().authenticated()
                 )
+
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo.userService(userOAuth2Service))
                         .successHandler(oAuth2SuccessHandler)
@@ -82,5 +82,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
 }

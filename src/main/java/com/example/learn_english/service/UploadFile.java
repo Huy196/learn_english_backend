@@ -19,7 +19,7 @@ public class UploadFile {
             throw new IOException("Tên file không hợp lệ.");
         }
 
-        String sourceFolder = "D:\\IdeaProjects\\BackEnd_SpringBoot\\BaiTap\\src\\main\\resources\\static\\uploadFile\\";
+        String sourceFolder = "D:\\IdeaProjects\\BackEnd_SpringBoot\\learn_english\\src\\main\\resources\\static\\uploadFile\\";
         File folder = new File(sourceFolder);
         if (!folder.exists()) {
             folder.mkdirs();

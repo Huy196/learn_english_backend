@@ -11,6 +11,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -30,6 +34,10 @@ public class AuthController {
 
     @PostMapping( value = "/register")
     public ResponseEntity<String> register(@RequestBody UserDto dto) {
+
+        if (dto.getImages() == null || dto.getImages().isEmpty()) {
+            dto.setImages(List.of("defalut.jpg"));
+        }
         userService.createUser(dto);
         return ResponseEntity.ok("Đăng ký thành công!");
     }

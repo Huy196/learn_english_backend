@@ -17,10 +17,10 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public ResponseEntity<UserDto> getAllUsers() {
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.getAllUser();
-        return ResponseEntity.ok((UserDto) users);
+        return ResponseEntity.ok(users);
     }
 
     @DeleteMapping("/delete/{id}")

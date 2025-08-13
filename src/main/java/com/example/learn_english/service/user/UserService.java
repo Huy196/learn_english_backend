@@ -37,7 +37,6 @@ public class UserService {
                     .collect(Collectors.toSet());
             user.setRoles(roles);
         }
-
         user.setAge(dto.getAge());
         user.setName(dto.getName());
 
