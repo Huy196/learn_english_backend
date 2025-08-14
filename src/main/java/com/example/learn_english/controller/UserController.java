@@ -27,15 +27,11 @@ public class UserController {
     public ResponseEntity<String> deleteById(@PathVariable("id") long id) {
         boolean deteled = userService.deleteById(id);
 
-        if (deteled){
-            return ResponseEntity.ok("Xóa người dùng thành công!");
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy người dùng!");
-        }
+        return ResponseEntity.ok("Xóa người dùng thành công!");
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateUserById(@RequestBody UserDto userDto){
+    public ResponseEntity<String> updateUserById(@RequestBody UserDto userDto) {
         userService.createUser(userDto);
         return ResponseEntity.ok("Cập nhật thành công!");
     }
